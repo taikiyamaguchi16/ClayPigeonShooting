@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/jasu/jasuTest.unity
+- path: Assets/yamaguchi/Scene/game.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0

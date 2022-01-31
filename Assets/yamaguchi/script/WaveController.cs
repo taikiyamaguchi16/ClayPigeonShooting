@@ -4,18 +4,22 @@ using UnityEngine;
 
 public class WaveController : MonoBehaviour
 {
-    public List<float> shotTimes = new List<float>();
-
-    //二連続撃ちの回数
-    public int doubuleShotNum;
-    //三連続うちの回数
-    public int tripleShotNum;
+    [System.Serializable]
+    public struct ShotData
+    {
+        public float shotTime;
+        //一度に打つ量
+        public int oneShotNum;
+    }
+    public List<ShotData> shotDatas = new List<ShotData>();
 
     private float elpsedTime;
 
     private int shotCount;
 
     public WaveManager myManager;
+
+    public List<LauncherManager> launchers = new List<LauncherManager>();
     private void Start()
     {
         elpsedTime = 0f;
@@ -25,11 +29,11 @@ public class WaveController : MonoBehaviour
     public void ActiveWaveUpdate()
     {
         elpsedTime += Time.deltaTime;
-        if (shotCount < shotTimes.Count)
+        if (shotCount < shotDatas.Count)
         {
-            if (elpsedTime > shotTimes[shotCount])
+            if (elpsedTime > shotDatas[shotCount].shotTime)
             {
-                Debug.Log(this.gameObject.name+"弾を発射");
+                WhichLaunchersShot();
                 elpsedTime = 0f;
                 shotCount++;
             }
@@ -37,6 +41,16 @@ public class WaveController : MonoBehaviour
         else
         {
             StartCoroutine(myManager.FinishWave());
+        }
+    }
+
+    private void WhichLaunchersShot()
+    {
+        int shotNum = Random.Range(1, shotDatas[shotCount].oneShotNum - 1);
+        launchers[0].LaunchToOrder(shotNum);      
+        if(shotDatas[shotCount].oneShotNum-shotNum>0)
+        {
+            launchers[1].LaunchToOrder(shotDatas[shotCount].oneShotNum - shotNum);
         }
     }
 }
