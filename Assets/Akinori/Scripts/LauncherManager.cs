@@ -10,19 +10,7 @@ public class LauncherManager : MonoBehaviour
     private GameObject launchPos;
 
     public float claySpeed;
-    public enum trapMode
-    {
-        singleTrap,
-        doubleTrap,
-        tripleTrap,
-        altimate,
-    }
-    trapMode mode;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+
 
     // Update is called once per frame
     void Update()
@@ -31,20 +19,24 @@ public class LauncherManager : MonoBehaviour
         {
             //Launcher();
             LaunchToOrder(4);
-        }
-
-        
+        }     
     }
 
     //ÉNÉåÅ[î≠éÀ
     public void Launcher()
     {
+        GameObject insClay = Instantiate(clay, transform);
+        Vector3 direction = launchPos.transform.forward;
 
-        GameObject insClay = Instantiate(clay);
+
         insClay.transform.position = launchPos.transform.position;
-        insClay.transform.rotation = Quaternion.Euler(0, 0, Random.Range(5, 20));
-        Vector3 velocity = insClay.transform.rotation * new Vector3(1, 0, 0);
-        insClay.GetComponent<Rigidbody>().AddForce(velocity* claySpeed, ForceMode.Impulse);
+
+        insClay.transform.rotation = Quaternion.Euler(0, transform.rotation.y, Random.Range(5, 20));
+        Vector3 velocity = insClay.transform.rotation * direction;
+
+        //insClay.GetComponent<Rigidbody>().AddForce(velocity * claySpeed, ForceMode.Impulse);
+        insClay.GetComponent<Rigidbody>().AddForce(velocity * claySpeed, ForceMode.Impulse);
+
         insClay.AddComponent<AutoDestroy>().time = 5;
     }
 
@@ -68,8 +60,6 @@ public class LauncherManager : MonoBehaviour
             Launcher();
             yield return new WaitForSeconds(0.3f);
         }
-        
+
     }
-
-
 }

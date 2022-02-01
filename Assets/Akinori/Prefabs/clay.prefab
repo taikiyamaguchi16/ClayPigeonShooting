@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4652472005900446407}
   - component: {fileID: 7184723755503548830}
   - component: {fileID: 4610328948903398378}
-  - component: {fileID: -1630301706680693899}
+  - component: {fileID: -7583559083186101984}
   m_Layer: 0
   m_Name: clay
   m_TagString: Untagged
@@ -97,7 +97,7 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
---- !u!54 &-1630301706680693899
+--- !u!54 &-7583559083186101984
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
